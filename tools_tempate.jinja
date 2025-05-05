@@ -1,0 +1,152 @@
+[
+    {
+        "type": "function",
+        "function": {
+            "name": "getProductList",
+            "description": "You should always call this function whenever you want to see the available products in the store.",
+            "parameters": {
+                "type": "object",
+                "properties": {}
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "getCurrentCart",
+            "description": "You should call this function whenever you want to see current product items in the cart",
+            "parameters": {
+                "type": "object",
+                "properties": {}
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "addProduct",
+            "description": "You should call this function whenver you want to add product items in the cart.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "products": {
+                        "type": "array",
+                        "items": {
+                            type: "object",
+                            "properties": {
+                                "product_id": {
+                                    "type": "integer",
+                                    "description": "The id of the product to be added",
+                                },
+                                "quantity": {
+                                    "type": ["number"],
+                                    "description": "How many of the product to be added?",
+                                }
+                            },
+                            "required": [
+                                "product_id",
+                                "quantity"
+                            ]
+                        }
+                    }
+                },
+                "required": [
+                    "products"
+                ]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "removeProduct",
+            "description": "You should call this function whenever you want to remove product items in the cart",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "product_ids": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "description": "The id of the product to be removed"
+                        },
+                        "description": "list of product ids to be removed"
+                    }
+                },
+                "required": [
+                    "product_ids"
+                ]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "modifyCart",
+            "description": "You should call this function whenever you want to modify product items in the cart",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "products": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "product_id": {
+                                    "type": "integer",
+                                    "description": "The id of the product to be modified"
+                                },
+                                "quantity": {
+                                    "type": "number",
+                                    "description": "The quantity of the product to be modified."
+                                }   
+                            },
+                            "required": [
+                                "product_id",
+                                "quantity"
+                            ]
+                        },
+                        "description": "list of product dictionaries"
+                    }
+                },
+                "required": [
+                    "products"
+                ]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "greetings",
+            "description": "You should call this function whenever you want to greet the user if the user doesn't have any specific request.",
+            "parameters": {
+                "type": "object",
+                "properties": {}
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "out_of_scope",
+            "description": "You should call this function whenever the user has a request that is out of scope.",
+            "parameters": {
+                "type": "object",
+                "properties": {}
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "clarify_product_quantity",
+            "description": "You should call this function before calling addProduct only when the user has not specify the quantity of the product.",
+            "parameters": {
+                "type": "object",
+                "properties": {}
+            }
+        }
+    },
+]
+
