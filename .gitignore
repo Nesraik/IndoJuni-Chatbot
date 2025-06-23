@@ -196,3 +196,5 @@ pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,python,dotenv
 llm_api_keys.txt
+chat_history.json
+Knowledge base

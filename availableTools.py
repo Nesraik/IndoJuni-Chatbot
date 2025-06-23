@@ -15,8 +15,8 @@ def login():
     response = requests.post(url, json=request_body)
     return response.json()
 
-response = login()
-access_token = response['data']['access_token']
+#response = login()
+#access_token = response['data']['access_token']
 
 # Get product list
 @observe(name="Get product list")
@@ -124,29 +124,7 @@ def greetings():
         "tool_call_id":"5",
         "content":{
             "function_name":"greetings",
-            "content": "Hello there! How can I help you today?",
-        }
-    }
-    return function_output
-
-# Placeholder function for out of scope requests
-def out_of_scope():
-    function_output = {
-        "tool_call_id":"6",
-        "content":{
-            "function_name":"out_of_scope",
-            "content": "Sorry, I can't help you with that. That is outside of my capabilities.",
-        }
-    }
-    return function_output
-
-# Placeholder function for clarifying information
-def clarify_product_quantity():
-    function_output = {
-        "tool_call_id":"7",
-        "content":{
-            "function_name":"clarify_product_quantity",
-            "content": "I am not sure what you mean. Can you please clarify?",
+            "content": "Welcome to IndoJuni! How can I assist you today?",
         }
     }
     return function_output
