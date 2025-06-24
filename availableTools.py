@@ -15,8 +15,8 @@ def login():
     response = requests.post(url, json=request_body)
     return response.json()
 
-#response = login()
-#access_token = response['data']['access_token']
+response = login()
+access_token = response['data']['access_token']
 
 # Get product list
 @observe(name="Get product list")

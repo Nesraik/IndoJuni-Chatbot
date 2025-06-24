@@ -10,8 +10,10 @@ from uuid import uuid4
 from google.genai import types
 from google import genai
 from langfuse.decorators import observe
+from Utils.parser import *
 from langfuse import Langfuse
 from langchain.document_loaders import Docx2txtLoader
+from Utils.jinjaProcessor import *
 langfuse = Langfuse()
     
 class MultilingualEmbeddingFunction(EmbeddingFunction):
@@ -34,57 +36,6 @@ class MultilingualEmbeddingFunction(EmbeddingFunction):
         for out in outputs.data:
             embeddings.append(out.embedding)
         return embeddings
-    
-def extract_json_dict(text):
-    """
-    Extracts and parses the JSON dictionary from the input text.
-
-    Args:
-        text (str): The input text containing a JSON object inside {}.
-
-    Returns:
-        dict: The parsed JSON dictionary.
-
-    Raises:
-        ValueError: If no valid JSON object is found or if parsing fails.
-    """
-    # Use regex to find the JSON object enclosed in {}
-    match = re.search(r"\{.*\}", text, re.DOTALL)
-
-    if not match:
-        print("No match found in the text.")
-        return None
-
-    # Extract the JSON string
-    json_str = match.group(0)
-
-    json_str = re.sub(r"\\'", "'", json_str)
-
-    try:
-        # Parse the JSON string into a Python dictionary
-        json_dict = json.loads(json_str)
-    except json.JSONDecodeError as e:
-        print("Error decoding JSON:", e)
-        return None
-
-    return json_dict
-
-# Read data
-def readJSONLines(filename):
-    json_dict_list = []
-    with open(filename, "r") as f:
-        for line in f.readlines():
-            
-            json_dict = extract_json_dict(line)
-            json_dict_list.append(json_dict)
-
-    product_list = []
-
-    for json_dict in json_dict_list:
-        product = json.dumps(json_dict, ensure_ascii=False)
-        product_list.append(product)
-
-    return product_list
 
 # Create database to store text chunks
 def createDbCollection(dbname, filename,dbpath):
@@ -112,12 +63,60 @@ def getDbCollection(dbpath,dbname):
     dbcollection = dbclient.get_collection(name=dbname, embedding_function=custom_emb_func)
     return dbcollection
 
+class LLMRewriter():
+    def __init__(self):
+        self.client = OpenAI(
+            api_key = os.environ.get("GeminiAPI"),
+            base_url = "https://generativelanguage.googleapis.com/v1beta/"
+        )
+        self.model_name = "gemini-2.0-flash"
+
+    @observe(name = "Generate response")
+    def rewriteQuery(self,messages):
+        response = self.client.chat.completions.create(
+            model = self.model_name,
+            messages = messages,
+            temperature=0.1,
+            top_p=0.1,
+            presence_penalty=0.0,
+        )
+        return response
+
 @observe()
 # Retrieve and Generate (RAG)
-def RAG(dbcollection, query):
-    results = dbcollection.query(
-        query_texts=query,
-        n_results=5,
-    )
+def RAG(dbcollection, user_message,chat_history):
+
+    temp = {
+        "user_message": user_message,
+        "chat_history": chat_history
+    }
+
+    user_prompt = process_template('Prompt/rewriter_prompt.jinja', temp)
+
+    messages = [
+        {
+            "role": "system",
+            "content": "You are a helpful assistant that rewrites user message into relevant query for RAG."
+        },
+        {
+            "role": "user",
+            "content": user_prompt
+        }
+    ]
+
+    LLMRewriter= LLMRewriter()
+    response = LLMRewriter.rewriteQuery(messages)
+    response = extract_json_dict(response.choices[0].message.content)
+
+    if response['Rewritten query'] == "NONE":
+        return "No relevant information found."
+    else:
+        context_list = []
+        for subquery in response['Subquery']:
+            results = dbcollection.query(
+                query_texts=subquery,
+                n_results=2,
+            )
+            context_list.append(results['documents'][0])
     context = "\n".join(doc for doc in results['documents'][0])
     return context
