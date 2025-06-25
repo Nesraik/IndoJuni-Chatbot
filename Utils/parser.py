@@ -70,7 +70,7 @@ def readJSONLines(filename):
     with open(filename, "r") as f:
         for line in f.readlines():
             
-            json_dict = extract_json_dict(line)
+            json_dict = json.loads(line)
             json_dict_list.append(json_dict)
 
     product_list = []

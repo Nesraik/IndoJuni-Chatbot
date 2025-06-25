@@ -45,11 +45,12 @@ def createDbCollection(dbname, filename,dbpath):
     dbcollection = dbclient.create_collection(
         name=dbname, embedding_function=custom_emb_func
     )
-    chunk_text_docs = readJSONLines(filename)
+    with open(filename, "r") as f:
+        chunk_text_docs = json.load(f)
 
     for i, doc in enumerate(chunk_text_docs):
         dbcollection.add(
-            documents=doc,
+            documents=str(doc),
             ids=str(uuid4()),
             metadatas={"source": filename, "chunk": i},
         )
@@ -71,7 +72,7 @@ class LLMRewriter():
         )
         self.model_name = "gemini-2.0-flash"
 
-    @observe(name = "Generate response")
+    @observe(name = "Rewrite Query")
     def rewriteQuery(self,messages):
         response = self.client.chat.completions.create(
             model = self.model_name,
@@ -104,8 +105,8 @@ def RAG(dbcollection, user_message,chat_history):
         }
     ]
 
-    LLMRewriter= LLMRewriter()
-    response = LLMRewriter.rewriteQuery(messages)
+    Rewriter= LLMRewriter()
+    response = Rewriter.rewriteQuery(messages)
     response = extract_json_dict(response.choices[0].message.content)
 
     if response['Rewritten query'] == "NONE":
@@ -117,6 +118,8 @@ def RAG(dbcollection, user_message,chat_history):
                 query_texts=subquery,
                 n_results=2,
             )
-            context_list.append(results['documents'][0])
-    context = "\n".join(doc for doc in results['documents'][0])
+            for doc in results['documents'][0]:
+                context_list.append(doc)
+                
+    context = "\n".join(doc for doc in context_list)
     return context
