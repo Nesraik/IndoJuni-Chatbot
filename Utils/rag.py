@@ -1,21 +1,18 @@
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.document_loaders import PyPDFLoader
 from chromadb import Documents, EmbeddingFunction, Embeddings
 import os
-import re
+import requests
 import json
 from openai import OpenAI
 import chromadb
 from uuid import uuid4
-from google.genai import types
-from google import genai
 from langfuse.decorators import observe
 from Utils.parser import *
 from langfuse import Langfuse
 from langchain.document_loaders import Docx2txtLoader
 from Utils.jinjaProcessor import *
 langfuse = Langfuse()
-    
+
 class MultilingualEmbeddingFunction(EmbeddingFunction):
     def __init__(self):
         super().__init__()
@@ -24,7 +21,7 @@ class MultilingualEmbeddingFunction(EmbeddingFunction):
         self.model_name = "intfloat/multilingual-e5-large"
         self.emb_client = OpenAI(
             base_url=base_url,
-            api_key=api_key,
+            api_key=api_key
         )
 
     def __call__(self, input):
@@ -36,7 +33,7 @@ class MultilingualEmbeddingFunction(EmbeddingFunction):
         for out in outputs.data:
             embeddings.append(out.embedding)
         return embeddings
-
+    
 # Create database to store text chunks
 def createDbCollection(dbname, filename,dbpath):
     custom_emb_func = MultilingualEmbeddingFunction()

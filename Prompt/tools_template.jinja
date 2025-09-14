@@ -48,29 +48,6 @@
     {
         "type": "function",
         "function": {
-            "name": "removeProduct",
-            "description": "You should call this function whenever you want to remove product items in the cart",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "product_ids": {
-                        "type": "array",
-                        "items": {
-                            "type": "integer",
-                            "description": "The id of the product to be removed"
-                        },
-                        "description": "list of product ids to be removed"
-                    }
-                },
-                "required": [
-                    "product_ids"
-                ]
-            }
-        }
-    },
-    {
-        "type": "function",
-        "function": {
             "name": "modifyCart",
             "description": "You should call this function whenever you want to modify product items in the cart",
             "parameters": {
