@@ -46,7 +46,7 @@ CHATBOT_MODEL = "llama-3.3-70b-versatile"
 
 ## Usage
 ```python
-from chatbot import 
+from chatbot import Chatbot
 chatbot = Chatbot()
 chatbot.run_conversation()
 ```
