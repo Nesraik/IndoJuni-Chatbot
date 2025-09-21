@@ -1,6 +1,5 @@
 import requests
 import json
-import langfuse
 from langfuse.decorators import observe
 import os
 from dotenv import load_dotenv
@@ -126,7 +125,7 @@ class IndoJuniTool:
         }
         return function_output
 
-    # Placeholder function for user greetings
+    # Ignore this function for now (only used for testing purpose and won't be used for production)
     @observe(name="User greetings")
     def greetings(self):
         function_output = {
