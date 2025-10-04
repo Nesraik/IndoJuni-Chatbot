@@ -3,10 +3,11 @@ A bot for assisting INDOJUNI customer
 
 ## Tools
 ### Implemented
-- Get product list
+- Get product details
 - Get product in cart
 - Add product to cart
 - Modify product in cart
+- Show Invoice
 
 ### Work In Progress
 - Checkout cart

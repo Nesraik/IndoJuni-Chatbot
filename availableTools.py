@@ -105,6 +105,27 @@ class IndoJuniTool:
             }
         }
         return function_output
+    
+    @observe(name="Get product details")
+    def getProductDetails(self, product_id: int):
+        url = f"{self.base_url}/api/v1/product/detail"
+        request_headers = {
+            "Authorization": f"Bearer {self.access_token}",
+            "Accept": "application/json"
+        }
+        request_body = {
+            "product_id": product_id
+        }
+        response = requests.get(url, headers=request_headers, json=request_body)
+        response = response.json()
+        function_output = {
+            "tool_call_id":"5",
+            "content":{
+                "function_name":"getProductDetails",
+                "content": response['data'],
+            }
+        }
+        return function_output
 
     # Function to checkout cart
     @observe(name="Checkout cart")
@@ -117,9 +138,27 @@ class IndoJuniTool:
         response = requests.post(url,headers=request_headers,json=personal_info)
         response = response.json()
         function_output = {
-            "tool_call_id":"5",
+            "tool_call_id":"6",
             "content":{
                 "function_name":"checkoutCart",
+                "content": response['data'],
+            }
+        }
+        return function_output
+    
+    @observe(name="Show invoice")
+    def showInvoice(self):
+        url = f"{self.base_url}/api/v1/invoice"
+        request_headers = {
+            "Authorization": f"Bearer {self.access_token}",
+            "Accept": "application/json"
+        }
+        response = requests.post(url,headers=request_headers)
+        response = response.json()
+        function_output = {
+            "tool_call_id":"7",
+            "content":{
+                "function_name":"showInvoice",
                 "content": response['data'],
             }
         }
