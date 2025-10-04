@@ -51,6 +51,8 @@ chatbot = Chatbot()
 chatbot.run_conversation()
 ```
 
+Utilize this function specifically for calling the bot to generate response for the UI https://vscode.dev/github/Nesraik/IndoJuni-Chatbot/blob/main/chatbot.py#L67
+
 ## Next Approach
 - Incorporate knowledge graph into chatbot. Use RAG as a fall-back in case knowledge graph fails to retrieve relevant item
 - Try moonshotai/kimi-k2-instruct-0905 next and compare performance to current LLM (llama-3.3-70b-versatile)
