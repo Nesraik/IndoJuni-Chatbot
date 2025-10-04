@@ -11,7 +11,6 @@ A bot for assisting INDOJUNI customer
 
 ### Work In Progress
 - Checkout cart
-- Show invoice
 
 ## Prerequisite
 Installation using the provided requirements file.
