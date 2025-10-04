@@ -48,10 +48,17 @@ CHATBOT_MODEL = "llama-3.3-70b-versatile"
 ```python
 from chatbot import Chatbot
 chatbot = Chatbot()
-chatbot.run_conversation()
-```
 
-Utilize this function specifically for calling the bot to generate response for the UI https://vscode.dev/github/Nesraik/IndoJuni-Chatbot/blob/main/chatbot.py#L67
+## For testing in terminal
+chatbot.run_conversation()
+
+## For UI
+messages, flag = chatbot.generate_single_chat_message(
+    user_prompt,
+    messages,
+    flag
+)
+```
 
 ## Next Approach
 - Incorporate knowledge graph into chatbot. Use RAG as a fall-back in case knowledge graph fails to retrieve relevant item
