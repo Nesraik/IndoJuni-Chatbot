@@ -45,6 +45,7 @@ class Chatbot(IndoJuniTool):
             response = client.chat.completions.create(
                 model = os.environ.get("CHATBOT_MODEL"),
                 messages = messages,
+                tools= self.tools,
                 temperature=0.1,
                 top_p=0.1,
                 presence_penalty=0.0,
@@ -57,6 +58,7 @@ class Chatbot(IndoJuniTool):
                 response = client.chat.completions.create(
                     model = os.environ.get("CHATBOT_MODEL"),
                     messages = messages,
+                    tools= self.tools,
                     temperature=0.1,
                     top_p=0.1,
                     presence_penalty=0.0,
@@ -160,6 +162,3 @@ class Chatbot(IndoJuniTool):
             messages, flag = self.generate_single_chat_message(tester_message, messages,flag)
 
             count += 1
-
-bot = Chatbot()
-bot.run_conversation()

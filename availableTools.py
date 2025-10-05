@@ -3,7 +3,7 @@ import json
 from langfuse.decorators import observe
 import os
 from dotenv import load_dotenv
-load_dotenv()
+load_dotenv(override=True)
 
 class IndoJuniTool:
     def __init__(self):
@@ -56,7 +56,7 @@ class IndoJuniTool:
             "tool_call_id":"1",
             "content":{
                 "function_name":"getCurrentCart",
-                "content": response['data']['cartItems'],
+                "content": response['data']['cart_items'],
             }
         }
         return function_output
@@ -204,3 +204,4 @@ class IndoJuniTool:
 
         parsed_tools = json.loads(extracted_string)
         return parsed_tools
+    

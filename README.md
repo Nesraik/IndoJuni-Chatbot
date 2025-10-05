@@ -1,5 +1,5 @@
 # CHATBOT
-A bot for assisting INDOJUNI customer
+A bot for assisting INDOJUNI customer. This version of chatbot uses the latest kimi-instruct
 
 ## Tools
 ### Implemented
@@ -41,7 +41,7 @@ GeMINI_API = *************
 
 # CHATBOT
 CHATBOT_BASE_URL = "https://api.groq.com/openai/v1"
-CHATBOT_MODEL = "llama-3.3-70b-versatile"
+CHATBOT_MODEL = "moonshotai/kimi-k2-instruct"
 ```
 
 ## Usage
@@ -62,4 +62,3 @@ messages, flag = chatbot.generate_single_chat_message(
 
 ## Next Approach
 - Incorporate knowledge graph into chatbot. Use RAG as a fall-back in case knowledge graph fails to retrieve relevant item
-- Try moonshotai/kimi-k2-instruct-0905 next and compare performance to current LLM (llama-3.3-70b-versatile)
