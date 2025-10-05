@@ -8,8 +8,6 @@ A bot for assisting INDOJUNI customer
 - Add product to cart
 - Modify product in cart
 - Show Invoice
-
-### Work In Progress
 - Checkout cart
 
 ## Prerequisite
@@ -62,4 +60,4 @@ messages, flag = chatbot.generate_single_chat_message(
 
 ## Next Approach
 - Incorporate knowledge graph into chatbot. Use RAG as a fall-back in case knowledge graph fails to retrieve relevant item
-- Try moonshotai/kimi-k2-instruct-0905 next and compare performance to current LLM (llama-3.3-70b-versatile)
+- Test every interaction using every tool
