@@ -20,51 +20,40 @@
                 "properties": {
                     "product_id": {
                         "type": "integer",
-                        "description": "The product id for obtaining details",
-                            "required": [
-                                "product_id",
-                                "quantity"
-                            ]
-                        }
+                        "description": "The product id for obtaining details"
                     }
                 },
-                "required": [
-                    "products"
-                ]
+                "required": ["product_id"]
             }
+        }
     },
     {
         "type": "function",
         "function": {
             "name": "addProduct",
-            "description": "You should call this function whenver you want to add product items in the cart.",
+            "description": "You should call this function whenever you want to add product items in the cart.",
             "parameters": {
                 "type": "object",
                 "properties": {
                     "products": {
                         "type": "array",
                         "items": {
-                            type: "object",
+                            "type": "object",
                             "properties": {
                                 "product_id": {
                                     "type": "integer",
-                                    "description": "The id of the product to be added",
+                                    "description": "The id of the product to be added"
                                 },
                                 "quantity": {
-                                    "type": ["number"],
-                                    "description": "How many of the product to be added?",
+                                    "type": "number",
+                                    "description": "How many of the product to be added?"
                                 }
                             },
-                            "required": [
-                                "product_id",
-                                "quantity"
-                            ]
+                            "required": ["product_id", "quantity"]
                         }
                     }
                 },
-                "required": [
-                    "products"
-                ]
+                "required": ["products"]
             }
         }
     },
@@ -88,19 +77,14 @@
                                 "quantity": {
                                     "type": "number",
                                     "description": "The quantity of the product to be modified."
-                                }   
+                                }
                             },
-                            "required": [
-                                "product_id",
-                                "quantity"
-                            ]
+                            "required": ["product_id", "quantity"]
                         },
                         "description": "list of product dictionaries"
                     }
                 },
-                "required": [
-                    "products"
-                ]
+                "required": ["products"]
             }
         }
     },
@@ -108,18 +92,7 @@
         "type": "function",
         "function": {
             "name": "showInvoice",
-            "description": "You should call this function whenever you want to show user invoice. If this tool is **successfully** called, **strictly** return a message following this template
-
-            # Message Template
-            [
-                "Action": {
-                    "bot_action" : "redirect_invoice", 
-                    "data" :{
-                        "invoiceid": "id"
-                        }
-                    }
-            ]
-            ",
+            "description": "You should call this function whenever you want to show user invoice. If this tool is successfully called, strictly return a message following this template: [{\"Action\": {\"bot_action\": \"redirect_invoice\", \"data\": {\"invoiceid\": \"id\"}}}]",
             "parameters": {
                 "type": "object",
                 "properties": {}
@@ -127,4 +100,3 @@
         }
     }
 ]
-

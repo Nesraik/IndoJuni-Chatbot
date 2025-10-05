@@ -17,7 +17,7 @@ class Chatbot(IndoJuniTool):
         self.api_keys = []
         self.current_index = 0
         self._insert_api_key()
-        self.tools_prompt = process_template_no_var('Prompt/tools_template.jinja')
+        self.tools = json.loads(process_template_no_var('Prompt/tools_template.jinja'))
         self.functions = {
             "getCurrentCart": self.getCurrentCart,
             "addProduct": self.addProduct,
@@ -55,21 +55,21 @@ class Chatbot(IndoJuniTool):
                 self.current_index = (self.current_index + 1) % len(self.api_keys)
                 client = self._get_client()
                 response = client.chat.completions.create(
-                    model = "llama-3.3-70b-versatile",
+                    model = os.environ.get("CHATBOT_MODEL"),
                     messages = messages,
                     temperature=0.1,
                     top_p=0.1,
                     presence_penalty=0.0,
                     frequency_penalty=0.0,
                 )
-        return response.choices[0].message.content
+        return response.choices[0].message
 
     def generate_single_chat_message(self,user_prompt,messages,flag):
 
         context = self.Retriever.retrieveContext(user_message=user_prompt,chat_history=messages)
 
         temp = {
-            "tools": self.tools_prompt,
+            "tools": self.tools,
             "context": context
         }
 
@@ -98,24 +98,20 @@ class Chatbot(IndoJuniTool):
             response = self._generate_response(messages)
             messages.append({
                 "role": "assistant",
-                "content": response
+                "content": response.content
             })
 
-            
-            tools = parse_function(response,bfcl_format=False)
-
-            if len(tools) == 1 and (tools[0]['function_name'] == 'FUNCTION_NOT_FOUND' or tools[0]['function_name'] == 'NONE'):
+            if response.tool_calls is None:
                 break
             
-            
-            for tool in tools:
+            for tool in response.tool_calls:
 
-                if tool['function_name'] == 'FUNCTION_NOT_FOUND' or tool['function_name'] == 'NONE':
+                if tool is None:
                     continue
 
                 # Check for function name
                 try:
-                    function_name = self.functions[tool['function_name']]
+                    function_name = self.functions[tool.function.name]
                 except:
                     messages.append({
                         "role": "tool",
@@ -125,13 +121,7 @@ class Chatbot(IndoJuniTool):
 
                     continue
 
-                try:
-                    function_args = tool['args']
-                except:
-                    function_args = tool['parameters']
-
-                if "<MISSING>" in function_args.values():
-                    return messages, flag
+                function_args = json.loads(tool.function.arguments)
 
                 # Check for function arguments
                 try:    
@@ -139,14 +129,16 @@ class Chatbot(IndoJuniTool):
                     content = json.dumps(function_output, indent=4)
                     messages.append({
                         "role": "tool",
-                        "tool_call_id": function_output['tool_call_id'],
+                        "tool_call_id": tool.id,
+                        "name": tool.function.name,
                         "content": content
-                    })
+                    })  
 
                 except Exception as e:
                     messages.append({
                         "role": "tool",
-                        "tool_call_id": "N/A",
+                        "tool_call_id": tool.id,
+                        "name": tool.function.name,
                         "content": f"Error: {str(e)} calling {function_name.__name__} with args {function_args}"
                     })
 
@@ -168,3 +160,6 @@ class Chatbot(IndoJuniTool):
             messages, flag = self.generate_single_chat_message(tester_message, messages,flag)
 
             count += 1
+
+bot = Chatbot()
+bot.run_conversation()
