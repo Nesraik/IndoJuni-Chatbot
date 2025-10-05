@@ -1,5 +1,5 @@
 # CHATBOT
-A bot for assisting INDOJUNI customer. This version of chatbot uses the latest kimi-instruct
+A bot for assisting INDOJUNI customer. This version of chatbot uses the latest kimi-instruct model.
 
 ## Tools
 ### Implemented
