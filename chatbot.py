@@ -24,6 +24,7 @@ class Chatbot(IndoJuniTool):
             "modifyCart": self.modifyCart,
             "getProductDetails": self.getProductDetails,
             "showInvoice": self.showInvoice,
+            "checkoutCart": self.checkoutCart
         }
         self.Retriever = ContextRetriever()
 

@@ -91,6 +91,77 @@
     {
         "type": "function",
         "function": {
+            "name": "checkoutCart",
+            "description": "Processes the final checkout of the user's shopping cart by submitting shipping, billing, and payment information (including credit card details) to the e-commerce API. This function completes the purchase.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                "firstname": {
+                    "type": "string",
+                    "description": "The first name of the customer (required)."
+                },
+                "lastname": {
+                    "type": "string",
+                    "description": "The last name of the customer (required)."
+                },
+                "address": {
+                    "type": "string",
+                    "description": "The primary street address for shipping (required)."
+                },
+                "address2": {
+                    "type": "string",
+                    "description": "The secondary address line (e.g., apartment, suite number). This is optional."
+                },
+                "zip": {
+                    "type": "string",
+                    "description": "The postal or zip code (required). The fixed length of this zip is 5."
+                },
+                "email": {
+                    "type": "string",
+                    "description": "The customer's email address for confirmation and tracking. This is optional."
+                },
+                "payment_method": {
+                    "type": "string",
+                    "description": "The selected payment method kredit | debit (required).",
+                    "enum":[
+                        "kredit",
+                        "debit"
+                    ]
+                },
+                "card_name": {
+                    "type": "string",
+                    "description": "The name printed on the payment card (required)."
+                },
+                "card_number": {
+                    "type": "string",
+                    "description": "The full credit card number (format: \"xxxx xxxx xxxx xxxx\") (required)."
+                },
+                "card_expiration": {
+                    "type": "string",
+                    "description": "The card expiration date (format: “mm/yy”) (required)."
+                },
+                "card_cvv": {
+                    "type": "string",
+                    "description": "The three digit Card Verification Value (CVV) (required). The fixed length of this parameter is 3"
+                }
+                },
+                "required": [
+                    "firstname",
+                    "lastname",
+                    "address",
+                    "zip",
+                    "payment_method",
+                    "card_name",
+                    "card_number",
+                    "card_expiration",
+                    "card_cvv"
+                ]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
             "name": "showInvoice",
             "description": "You should call this function whenever you want to show user invoice. If this tool is successfully called, strictly return a message following this template: [{\"Action\": {\"bot_action\": \"redirect_invoice\", \"data\": {\"invoiceid\": \"id\"}}}]",
             "parameters": {

@@ -8,8 +8,6 @@ A bot for assisting INDOJUNI customer. This version of chatbot uses the latest k
 - Add product to cart
 - Modify product in cart
 - Show Invoice
-
-### Work In Progress
 - Checkout cart
 
 ## Prerequisite
@@ -62,3 +60,4 @@ messages, flag = chatbot.generate_single_chat_message(
 
 ## Next Approach
 - Incorporate knowledge graph into chatbot. Use RAG as a fall-back in case knowledge graph fails to retrieve relevant item
+- Test interaction using every tool
