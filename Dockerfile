@@ -1,5 +1,6 @@
 FROM indojuni-chatbot:base
 
+WORKDIR /app
 COPY . .
 
 EXPOSE 8114
