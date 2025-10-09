@@ -3,14 +3,12 @@ A bot for assisting INDOJUNI customer
 
 ## Tools
 ### Implemented
-- Get product list
+- Get product details
 - Get product in cart
 - Add product to cart
 - Modify product in cart
-
-### Work In Progress
+- Show Invoice
 - Checkout cart
-- Show invoice
 
 ## Prerequisite
 Installation using the provided requirements file.
@@ -48,9 +46,18 @@ CHATBOT_MODEL = "llama-3.3-70b-versatile"
 ```python
 from chatbot import Chatbot
 chatbot = Chatbot()
+
+## For testing in terminal
 chatbot.run_conversation()
+
+## For UI
+messages, flag = chatbot.generate_single_chat_message(
+    user_prompt,
+    messages,
+    flag
+)
 ```
 
 ## Next Approach
 - Incorporate knowledge graph into chatbot. Use RAG as a fall-back in case knowledge graph fails to retrieve relevant item
-- Try moonshotai/kimi-k2-instruct-0905 next and compare performance to current LLM (llama-3.3-70b-versatile)
+- Test every interaction using every tool

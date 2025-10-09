@@ -22,6 +22,9 @@ class Chatbot(IndoJuniTool):
             "getCurrentCart": self.getCurrentCart,
             "addProduct": self.addProduct,
             "modifyCart": self.modifyCart,
+            "getProductDetails": self.getProductDetails,
+            "showInvoice": self.showInvoice,
+            "checkoutCart": self.checkoutCart,
         }
         self.Retriever = ContextRetriever()
 
@@ -37,7 +40,7 @@ class Chatbot(IndoJuniTool):
         )
     
     @observe()
-    def generate_response(self,messages):
+    def _generate_response(self,messages):
         try:
             client = self._get_client()
             response = client.chat.completions.create(
@@ -62,13 +65,6 @@ class Chatbot(IndoJuniTool):
                 )
         return response.choices[0].message.content
 
-    def end_response(self,tool_call):
-        end_response_func = ["NONE"]
-        if tool_call['function_name'] in end_response_func:
-            return True
-        else:
-            return False
-    
     def generate_single_chat_message(self,user_prompt,messages,flag):
 
         context = self.Retriever.retrieveContext(user_message=user_prompt,chat_history=messages)
@@ -100,7 +96,7 @@ class Chatbot(IndoJuniTool):
             messages[0]['content'] = system_prompt
 
         while True:
-            response = self.generate_response(messages)
+            response = self._generate_response(messages)
             messages.append({
                 "role": "assistant",
                 "content": response
