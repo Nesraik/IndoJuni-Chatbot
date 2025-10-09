@@ -199,3 +199,4 @@ llm_api_keys.txt
 chat_history.json
 Knowledge base
 testbed.ipynb
+docker-compose.yml
