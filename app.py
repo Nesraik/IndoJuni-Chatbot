@@ -2,7 +2,6 @@ import logging
 from fastapi import FastAPI, Request, Response, status
 # uvicorn app:app --host 0.0.0.0 --port 8114 --reload
 app = FastAPI()
-# or logging.getLogger(__name__) for app-specific logs
 logger = logging.getLogger("uvicorn.error")
 
 
