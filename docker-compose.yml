@@ -1,0 +1,9 @@
+services:
+  indojuni-chatbot:
+    image: indojuni-chatbot:latest
+    container_name: indojuni-chatbot
+    restart: unless-stopped
+    ports:
+      - "8114:8114"
+    env_file:
+      - .env
