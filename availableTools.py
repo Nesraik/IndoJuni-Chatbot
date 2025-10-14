@@ -3,7 +3,7 @@ import json
 from langfuse.decorators import observe
 import os
 from dotenv import load_dotenv
-load_dotenv()
+load_dotenv(override=True)
 
 class IndoJuniTool:
     def __init__(self):
@@ -34,7 +34,6 @@ class IndoJuniTool:
         response = requests.get(url, headers=request_headers)
         response = response.json()
         function_output = {
-            "tool_call_id":"0",
             "content":{
                 "function_name":"getProductList",
                 "content": response['data'],
@@ -53,7 +52,6 @@ class IndoJuniTool:
         response = requests.get(url, headers=request_headers)
         response = response.json()
         function_output = {
-            "tool_call_id":"1",
             "content":{
                 "function_name":"getCurrentCart",
                 "content": response['data']['cart_items'],
@@ -75,7 +73,6 @@ class IndoJuniTool:
         response = requests.post(url, headers=request_headers, json=request_body)
         response = response.json()
         function_output = {
-            "tool_call_id":"2",
             "content":{
                 "function_name":"addProduct",
                 "content": response['data'],
@@ -98,7 +95,6 @@ class IndoJuniTool:
         response = response.json()
 
         function_output = {
-            "tool_call_id":"4",
             "content":{
                 "function_name":"modifyProduct",
                 "content": response['data'],
@@ -119,7 +115,6 @@ class IndoJuniTool:
         response = requests.get(url, headers=request_headers, json=request_body)
         response = response.json()
         function_output = {
-            "tool_call_id":"5",
             "content":{
                 "function_name":"getProductDetails",
                 "content": response['data'],
@@ -129,16 +124,41 @@ class IndoJuniTool:
 
     # Function to checkout cart
     @observe(name="Checkout cart")
-    def checkoutCart(self, personal_info: dict):
+    def checkoutCart(
+        self,
+        firstname: str,
+        lastname: str,
+        address: str,
+        zip: str,
+        payment_method: str,
+        card_name: str,
+        card_number: str,
+        card_expiration: str,
+        card_cvv: str,
+        address2: str = None,
+        email: str = None,
+    ):
         url = f"{self.base_url}/api/v1/checkout"
         request_headers = {
             "Authorization": f"Bearer {self.access_token}",
             "Accept": "application/json"
         }
+        personal_info = {
+            "firstname": firstname,
+            "lastname": lastname,
+            "address": address,
+            "address2": address2,
+            "zip": zip,
+            "email": email,
+            "payment_method": payment_method,
+            "card_name": card_name,
+            "card_number": card_number,
+            "card_expiration": card_expiration,
+            "card_cvv": card_cvv,
+        }
         response = requests.post(url,headers=request_headers,json=personal_info)
         response = response.json()
         function_output = {
-            "tool_call_id":"6",
             "content":{
                 "function_name":"checkoutCart",
                 "content": response['data'],
@@ -182,7 +202,6 @@ class IndoJuniTool:
         response = requests.post(url,headers=request_headers,json=personal_info)
         response = response.json()
         function_output = {
-            "tool_call_id":"6",
             "content":{
                 "function_name":"checkoutCart",
                 "content": response['data'],
@@ -200,51 +219,9 @@ class IndoJuniTool:
         response = requests.post(url,headers=request_headers)
         response = response.json()
         function_output = {
-            "tool_call_id":"7",
             "content":{
                 "function_name":"showInvoice",
                 "content": response['data'],
             }
         }
         return function_output
-
-    # Ignore this function for now (only used for testing purpose and won't be used for production)
-    @observe(name="User greetings")
-    def greetings(self):
-        function_output = {
-            "tool_call_id":"5",
-            "content":{
-                "function_name":"greetings",
-                "content": "Welcome to IndoJuni! How can I assist you today?",
-            }
-        }
-        return function_output
-    
-    # @observe(name="Show invoice")
-    # def showInvoice(self):
-    #     url = f"{self.base_url}/api/v1/cart/modify"
-    #     headers = {
-    #         "Authorization": f"Bearer {self.access_token}"
-    #     }
-    #     request_body = {
-    #         "product":products,
-    #     }
-    #     response = requests.post(url,headers=headers,json=request_body)
-    #     response = response.json()
-    #     function_output = {
-    #         "tool_call_id":"6",
-    #         "content":{
-    #             "function_name":"showInvoice",
-    #             "content": "You can view your invoice at: https://indojuni.com/invoice (This is a placeholder link)",
-    #         }
-    #     }
-    #     return function_output
-
-    # Function executor
-    def function_extractor(response):
-        start_index = response.content.find('[')
-        end_index = response.content.rfind(']') + 1
-        extracted_string = response.content[start_index:end_index]
-
-        parsed_tools = json.loads(extracted_string)
-        return parsed_tools
