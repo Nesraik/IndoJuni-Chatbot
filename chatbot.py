@@ -22,11 +22,12 @@ class Chatbot(IndoJuniTool):
             "getCurrentCart": self.getCurrentCart,
             "addProduct": self.addProduct,
             "modifyCart": self.modifyCart,
-            "getProductDetails": self.getProductDetails,
+            "searchProductList": self.searchProductList,
+            "searchProductName": self.searchProductName,
             "showInvoice": self.showInvoice,
-            "checkoutCart": self.checkoutCart
+           # "checkoutCart": self.checkoutCart
         }
-        self.Retriever = ContextRetriever()
+        #self.Retriever = ContextRetriever()
 
     def _insert_api_key(self):
         with open("llm_api_keys.txt") as f:
@@ -69,11 +70,11 @@ class Chatbot(IndoJuniTool):
 
     def generate_single_chat_message(self,user_prompt,messages,flag):
 
-        context = self.Retriever.retrieveContext(user_message=user_prompt,chat_history=messages)
+        #context = self.Retriever.retrieveContext(user_message=user_prompt,chat_history=messages)
 
         temp = {
             "tools": self.tools,
-            "context": context
+            #"context": context
         }
 
         system_prompt = process_template('Prompt/system_prompt.jinja', temp)
@@ -163,3 +164,4 @@ class Chatbot(IndoJuniTool):
             messages, flag = self.generate_single_chat_message(tester_message, messages,flag)
 
             count += 1
+Chatbot().run_conversation()
