@@ -24,18 +24,18 @@ class IndoJuniTool:
         return response.json()
 
     # Get product list
-    @observe(name="Get product list")
-    def getProductList(self):
+    @observe(name="Search product list")
+    def searchProductList(self, query: dict):
         url = f"{self.base_url}/api/v1/product/all"
         request_headers = {
             "Authorization": f"Bearer {self.access_token}",
             "Accept": "application/json"
         }
-        response = requests.get(url, headers=request_headers)
+        response = requests.get(url, headers=request_headers, params=query)
         response = response.json()
         function_output = {
             "content":{
-                "function_name":"getProductList",
+                "function_name":"searchProductList",
                 "content": response['data'],
             }
         }
@@ -102,21 +102,22 @@ class IndoJuniTool:
         }
         return function_output
     
-    @observe(name="Get product details")
-    def getProductDetails(self, product_id: int):
-        url = f"{self.base_url}/api/v1/product/detail"
+    @observe(name="Search product by name")
+    def searchProductName(self, product_name: str):
+        url = f"{self.base_url}/api/v1/product/search-similar-name"
         request_headers = {
             "Authorization": f"Bearer {self.access_token}",
             "Accept": "application/json"
         }
         request_body = {
-            "product_id": product_id
+            "product_name": product_name
         }
         response = requests.get(url, headers=request_headers, json=request_body)
         response = response.json()
+        print(response)
         function_output = {
             "content":{
-                "function_name":"getProductDetails",
+                "function_name":"searchProductName",
                 "content": response['data'],
             }
         }
@@ -225,3 +226,6 @@ class IndoJuniTool:
             }
         }
         return function_output
+
+tool = IndoJuniTool()
+print(tool.searchProductName("indomie"))

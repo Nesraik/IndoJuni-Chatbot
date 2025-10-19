@@ -58,6 +58,9 @@ messages, flag = chatbot.generate_single_chat_message(
 )
 ```
 
+## Note
+- RAG is discarded
+- Checkout is temporarily unavailable
+
 ## Next Approach
-- Incorporate knowledge graph into chatbot. Use RAG as a fall-back in case knowledge graph fails to retrieve relevant item
 - Test interaction using every tool
