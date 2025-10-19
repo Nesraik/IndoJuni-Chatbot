@@ -164,4 +164,3 @@ class Chatbot(IndoJuniTool):
             messages, flag = self.generate_single_chat_message(tester_message, messages,flag)
 
             count += 1
-Chatbot().run_conversation()

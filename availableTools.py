@@ -226,6 +226,3 @@ class IndoJuniTool:
             }
         }
         return function_output
-
-tool = IndoJuniTool()
-print(tool.searchProductName("indomie"))
