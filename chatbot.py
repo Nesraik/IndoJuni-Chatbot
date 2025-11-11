@@ -5,7 +5,6 @@ from langfuse.decorators import observe
 import json
 from Utils.jinjaProcessor import *
 from Utils.parser import *
-from rag import *
 import requests
 from dotenv import load_dotenv
 load_dotenv(override=True)
@@ -25,9 +24,8 @@ class Chatbot(IndoJuniTool):
             "searchProductList": self.searchProductList,
             "searchProductName": self.searchProductName,
             "showInvoice": self.showInvoice,
-           # "checkoutCart": self.checkoutCart
+            "checkoutCart": self.checkoutCart
         }
-        #self.Retriever = ContextRetriever()
 
     def _insert_api_key(self):
         with open("llm_api_keys.txt") as f:
@@ -72,12 +70,12 @@ class Chatbot(IndoJuniTool):
 
         #context = self.Retriever.retrieveContext(user_message=user_prompt,chat_history=messages)
 
-        temp = {
-            "tools": self.tools,
-            #"context": context
-        }
+        # temp = {
+        #     "tools": self.tools,
+        #     #"context": context
+        # }
 
-        system_prompt = process_template('Prompt/system_prompt.jinja', temp)
+        system_prompt = process_template_no_var('Prompt/system_prompt.jinja')
 
         if flag == False:
             messages = [
@@ -102,7 +100,8 @@ class Chatbot(IndoJuniTool):
             response = self._generate_response(messages)
             messages.append({
                 "role": "assistant",
-                "content": response.content
+                "content": response.content,
+                "tool_calls": response.tool_calls if response.tool_calls is not None else []
             })
 
             if response.tool_calls is None:
@@ -136,7 +135,7 @@ class Chatbot(IndoJuniTool):
                         "tool_call_id": tool.id,
                         "name": tool.function.name,
                         "content": content
-                    })  
+                    })
 
                 except Exception as e:
                     messages.append({
@@ -164,4 +163,5 @@ class Chatbot(IndoJuniTool):
             messages, flag = self.generate_single_chat_message(tester_message, messages,flag)
 
             count += 1
+
 Chatbot().run_conversation()

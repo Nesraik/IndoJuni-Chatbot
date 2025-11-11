@@ -112,7 +112,7 @@ class IndoJuniTool:
         request_body = {
             "product_name": product_name
         }
-        response = requests.get(url, headers=request_headers, json=request_body)
+        response = requests.post(url, headers=request_headers, json=request_body)
         response = response.json()
         print(response)
         function_output = {
@@ -122,49 +122,44 @@ class IndoJuniTool:
             }
         }
         return function_output
+    
+    def _getBillingAddress(self):
+        url = f"{self.base_url}/api/v1/auth/user"
+        request_headers = {
+            "Authorization": f"Bearer {self.access_token}",
+            "Accept": "application/json"
+        }
+        response = requests.get(url, headers=request_headers)
+        response = response.json()
+        return response['data']
 
     # Function to checkout cart
     @observe(name="Checkout cart")
     def checkoutCart(
-        self,
-        firstname: str,
-        lastname: str,
-        address: str,
-        zip: str,
-        payment_method: str,
-        card_name: str,
-        card_number: str,
-        card_expiration: str,
-        card_cvv: str,
-        address2: str = None,
-        email: str = None,
+        self
     ):
         url = f"{self.base_url}/api/v1/checkout"
         request_headers = {
             "Authorization": f"Bearer {self.access_token}",
             "Accept": "application/json"
         }
-        personal_info = {
-            "firstname": firstname,
-            "lastname": lastname,
-            "address": address,
-            "address2": address2,
-            "zip": zip,
-            "email": email,
-            "payment_method": payment_method,
-            "card_name": card_name,
-            "card_number": card_number,
-            "card_expiration": card_expiration,
-            "card_cvv": card_cvv,
-        }
-        response = requests.post(url,headers=request_headers,json=personal_info)
-        response = response.json()
-        function_output = {
-            "content":{
-                "function_name":"checkoutCart",
-                "content": response['data'],
+        personal_info = self._getBillingAddress()
+        if personal_info is not None:
+            response = requests.post(url,headers=request_headers,json=personal_info)
+            response = response.json()
+            function_output = {
+                "content":{
+                    "function_name":"checkoutCart",
+                    "content": response['data'],
+                }
             }
-        }
+        else:
+            function_output = {
+                "content":{
+                    "function_name":"checkoutCart",
+                    "content": "Error: Billing address not found. Please set your billing address in the profile page before checkout.",
+                }
+            }
         return function_output
     
     @observe(name="Show invoice")
@@ -183,6 +178,3 @@ class IndoJuniTool:
             }
         }
         return function_output
-
-tool = IndoJuniTool()
-print(tool.searchProductName("indomie"))
