@@ -1,6 +1,6 @@
 import requests
 import json
-from langfuse.decorators import observe
+from langfuse import observe
 import os
 from dotenv import load_dotenv
 load_dotenv(override=True)

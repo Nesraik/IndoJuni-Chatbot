@@ -1,7 +1,6 @@
 from availableTools import IndoJuniTool
-from langfuse import Langfuse
+from langfuse import Langfuse, observe
 from langfuse.openai import OpenAI
-from langfuse.decorators import observe
 import json
 from Utils.jinjaProcessor import *
 from Utils.parser import *
