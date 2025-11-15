@@ -14,6 +14,7 @@ class IndoJuniTool:
     @observe(name="Search product list")
     def searchProductList(self, query: dict):
         url = f"{self.base_url}/api/v1/product/all"
+        print(url)
         request_headers = {
             "Authorization": f"Bearer {self.access_token}",
             "Accept": "application/json"
@@ -32,6 +33,7 @@ class IndoJuniTool:
     @observe(name="Get product in cart")
     def getCurrentCart(self):
         url = f"{self.base_url}/api/v1/cart/current"
+        print(url)
         request_headers = {
             "Authorization": f"Bearer {self.access_token}",
             "Accept": "application/json"
@@ -84,26 +86,6 @@ class IndoJuniTool:
         function_output = {
             "content":{
                 "function_name":"modifyProduct",
-                "content": response['data'],
-            }
-        }
-        return function_output
-    
-    @observe(name="Search product by name")
-    def searchProductName(self, product_name: str):
-        url = f"{self.base_url}/api/v1/product/search-similar-name"
-        request_headers = {
-            "Authorization": f"Bearer {self.access_token}",
-            "Accept": "application/json"
-        }
-        request_body = {
-            "product_name": product_name
-        }
-        response = requests.post(url, headers=request_headers, json=request_body)
-        response = response.json()
-        function_output = {
-            "content":{
-                "function_name":"searchProductName",
                 "content": response['data'],
             }
         }
