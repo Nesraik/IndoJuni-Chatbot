@@ -8,13 +8,13 @@ load_dotenv(override=True)
 class IndoJuniTool:
     def __init__(self, access_token: str = None):
         self.base_url = os.environ['base_url']
+        print(self.base_url)
         self.access_token = access_token
 
     # Get product list
     @observe(name="Search product list")
     def searchProductList(self, query: dict):
         url = f"{self.base_url}/api/v1/product/all"
-        print(url)
         request_headers = {
             "Authorization": f"Bearer {self.access_token}",
             "Accept": "application/json"
@@ -33,7 +33,6 @@ class IndoJuniTool:
     @observe(name="Get product in cart")
     def getCurrentCart(self):
         url = f"{self.base_url}/api/v1/cart/current"
-        print(url)
         request_headers = {
             "Authorization": f"Bearer {self.access_token}",
             "Accept": "application/json"
