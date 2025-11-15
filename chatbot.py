@@ -155,4 +155,3 @@ class Chatbot(IndoJuniTool):
 
             count += 1
 
-Chatbot().run_conversation()
