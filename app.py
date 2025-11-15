@@ -1,7 +1,7 @@
 import logging
 from fastapi import FastAPI, Request, Response, status, HTTPException
 from fastapi import HTTPException
-from chatbot import ChatBot
+from chatbot import Chatbot
 # uvicorn app:app --host 0.0.0.0 --port 8114 --reload
 app = FastAPI()
 logger = logging.getLogger("uvicorn.error")
@@ -24,7 +24,7 @@ async def chat(request: Request, response: Response):
         messages = requestData.get("messages", [])
         userPrompt = requestData.get("user_prompt", "")
         flag = requestData.get("flag", False)
-        chatbot = ChatBot(access_token=access_key)
+        chatbot = Chatbot(access_token=access_key)
 
         messages, flag = chatbot.generate_single_chat_message(userPrompt, messages, flag)
         
