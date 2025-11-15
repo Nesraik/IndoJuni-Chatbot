@@ -6,22 +6,9 @@ from dotenv import load_dotenv
 load_dotenv(override=True)
 
 class IndoJuniTool:
-    def __init__(self):
+    def __init__(self, access_token: str = None):
         self.base_url = os.environ['base_url']
-        self.access_token = self._login()['data']['access_token']
-
-    # Login
-    def _login(self):
-        request_headers = {
-            "Accept": "application/json"
-        }
-        request_body = {
-            "email": os.environ['email'],
-            "password": os.environ['password']
-        }
-        url = f"{self.base_url}/api/v1/auth/login"
-        response = requests.post(url, json=request_body, headers=request_headers)
-        return response.json()
+        self.access_token = access_token
 
     # Get product list
     @observe(name="Search product list")

@@ -10,8 +10,8 @@ load_dotenv(override=True)
 langfuse = Langfuse()
 
 class Chatbot(IndoJuniTool):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, access_token: str = None):
+        super().__init__(access_token=access_token)
         self.api_keys = []
         self.current_index = 0
         self._insert_api_key()
