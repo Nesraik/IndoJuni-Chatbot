@@ -1,6 +1,5 @@
 import logging
 from fastapi import FastAPI, Request, Response, status, HTTPException
-from fastapi import HTTPException
 from chatbot import Chatbot
 # uvicorn app:app --host 0.0.0.0 --port 8114 --reload
 app = FastAPI()

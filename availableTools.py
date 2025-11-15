@@ -101,7 +101,6 @@ class IndoJuniTool:
         }
         response = requests.post(url, headers=request_headers, json=request_body)
         response = response.json()
-        print(response)
         function_output = {
             "content":{
                 "function_name":"searchProductName",
@@ -208,6 +207,3 @@ class IndoJuniTool:
             }
         }
         return function_output
-
-tool = IndoJuniTool()
-print(tool.searchProductName("indomie"))
