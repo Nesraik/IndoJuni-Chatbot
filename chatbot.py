@@ -67,13 +67,6 @@ class Chatbot(IndoJuniTool):
 
     def generate_single_chat_message(self,user_prompt,messages,flag):
 
-        #context = self.Retriever.retrieveContext(user_message=user_prompt,chat_history=messages)
-
-        # temp = {
-        #     "tools": self.tools,
-        #     #"context": context
-        # }
-
         system_prompt = process_template_no_var('Prompt/system_prompt.jinja')
 
         if flag == False:
