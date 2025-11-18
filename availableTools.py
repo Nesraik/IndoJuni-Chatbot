@@ -13,7 +13,7 @@ class IndoJuniTool:
 
     # Get product list
     @observe(name="Search product list")
-    def searchProductList(self, query: dict):
+    def searchProductList(self, **query):
         url = f"{self.base_url}/api/v1/product/all"
         request_headers = {
             "Authorization": f"Bearer {self.access_token}",
@@ -31,7 +31,7 @@ class IndoJuniTool:
 
     # Get current cart
     @observe(name="Get product in cart")
-    def getCurrentCart(self):
+    def getCurrentCart(self, **kwargs):
         url = f"{self.base_url}/api/v1/cart/current"
         request_headers = {
             "Authorization": f"Bearer {self.access_token}",
@@ -90,7 +90,7 @@ class IndoJuniTool:
         }
         return function_output
     
-    def _getBillingAddress(self):
+    def _getBillingAddress(self, **kwargs):
         url = f"{self.base_url}/api/v1/auth/user"
         request_headers = {
             "Authorization": f"Bearer {self.access_token}",
@@ -145,9 +145,7 @@ class IndoJuniTool:
         return function_output
     
     @observe(name="Checkout cart")
-    def checkoutCart(
-        self
-    ):
+    def checkoutCart(self, **kwargs):
         url = f"{self.base_url}/api/v1/checkout"
         request_headers = {
             "Authorization": f"Bearer {self.access_token}",
@@ -173,7 +171,7 @@ class IndoJuniTool:
         return function_output
     
     @observe(name="Show invoice")
-    def showInvoice(self):
+    def showInvoice(self, **kwargs):
         url = f"{self.base_url}/api/v1/invoice"
         request_headers = {
             "Authorization": f"Bearer {self.access_token}",
