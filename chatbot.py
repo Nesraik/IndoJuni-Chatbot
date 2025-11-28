@@ -34,8 +34,6 @@ class Chatbot(IndoJuniTool):
             tools= self.tools,
             temperature=0.1,
             top_p=0.1,
-            presence_penalty=0.0,
-            frequency_penalty=0.0,
         )
 
         return response.choices[0].message
