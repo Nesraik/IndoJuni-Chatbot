@@ -7,3 +7,9 @@ services:
       - "8114:8114"
     env_file:
       - .env
+    networks:
+      - indojuni-network
+
+networks:
+  indojuni-network:
+    external: true
