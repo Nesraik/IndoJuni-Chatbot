@@ -8,12 +8,11 @@ load_dotenv(override=True)
 class IndoJuniTool:
     def __init__(self, access_token: str = None):
         self.base_url = os.environ['base_url']
-        print(self.base_url)
         self.access_token = access_token
 
     # Get product list
     @observe(name="Search product list")
-    def searchProductList(self, **query):
+    def searchProductList(self, query: dict):
         url = f"{self.base_url}/api/v1/product/all"
         request_headers = {
             "Authorization": f"Bearer {self.access_token}",
@@ -31,7 +30,7 @@ class IndoJuniTool:
 
     # Get current cart
     @observe(name="Get product in cart")
-    def getCurrentCart(self, **kwargs):
+    def getCurrentCart(self):
         url = f"{self.base_url}/api/v1/cart/current"
         request_headers = {
             "Authorization": f"Bearer {self.access_token}",
@@ -90,7 +89,7 @@ class IndoJuniTool:
         }
         return function_output
     
-    def _getBillingAddress(self, **kwargs):
+    def _getBillingAddress(self):
         url = f"{self.base_url}/api/v1/auth/user"
         request_headers = {
             "Authorization": f"Bearer {self.access_token}",
@@ -99,9 +98,11 @@ class IndoJuniTool:
         response = requests.get(url, headers=request_headers)
         response = response.json()
         return response['data']
-    
+
     @observe(name="Checkout cart")
-    def checkoutCart(self, **kwargs):
+    def checkoutCart(
+        self
+    ):
         url = f"{self.base_url}/api/v1/checkout"
         request_headers = {
             "Authorization": f"Bearer {self.access_token}",
@@ -127,7 +128,7 @@ class IndoJuniTool:
         return function_output
     
     @observe(name="Show invoice")
-    def showInvoice(self, **kwargs):
+    def showInvoice(self):
         url = f"{self.base_url}/api/v1/invoice"
         request_headers = {
             "Authorization": f"Bearer {self.access_token}",
