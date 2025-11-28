@@ -23,23 +23,15 @@ base_url = "https://indojuni.cafaku.dev"
 email = "user@gmail.com"
 password = *****
 
-# EMBEDDING
-EMBEDDING_MODEL = "intfloat/multilingual-e5-large"
-EMBEDDING_URL = http://elima.cafaku.dev/v1
-
 # LANGFUSE 
 LANGFUSE_SECRET_KEY=********************************
 LANGFUSE_PUBLIC_KEY=********************************
 LANGFUSE_HOST="http://localhost:3000"
 
-# GEMINI
-GEMINI_MODEL = "gemini-2.0-flash"
-GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/"
-GeMINI_API = *************
-
 # CHATBOT
-CHATBOT_BASE_URL = "https://api.groq.com/openai/v1"
-CHATBOT_MODEL = "moonshotai/kimi-k2-instruct"
+CHATBOT_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/"
+CHATBOT_MODEL = "gemini-2.5-flash"
+CHATBOT_API_KEY = *******************************
 ```
 
 ## Usage

@@ -12,9 +12,6 @@ langfuse = Langfuse()
 class Chatbot(IndoJuniTool):
     def __init__(self, access_token: str = None):
         super().__init__(access_token=access_token)
-        self.api_keys = []
-        self.current_index = 0
-        self._insert_api_key()
         self.tools = json.loads(process_template_no_var('Prompt/tools_template.jinja'))
         self.functions = {
             "getCurrentCart": self.getCurrentCart,
@@ -23,44 +20,23 @@ class Chatbot(IndoJuniTool):
             "showInvoice": self.showInvoice,
             "checkoutCart": self.checkoutCart
         }
-
-    def _insert_api_key(self):
-        with open("llm_api_keys.txt") as f:
-            for line in f.readlines():
-                self.api_keys.append(line.strip())
-
-    def _get_client(self):
-        return OpenAI(
+        self.client = OpenAI(
             base_url=os.environ.get("CHATBOT_BASE_URL"),
-            api_key= self.api_keys[self.current_index]
+            api_key= os.environ.get("CHATBOT_API_KEY")
         )
-    
+
     @observe()
     def _generate_response(self,messages):
-        try:
-            client = self._get_client()
-            response = client.chat.completions.create(
-                model = os.environ.get("CHATBOT_MODEL"),
-                messages = messages,
-                tools= self.tools,
-                temperature=0.1,
-                top_p=0.1,
-                presence_penalty=0.0,
-                frequency_penalty=0.0,
-            )
-        except requests.exceptions.HTTPError as e:
-            if response.status_code == 429:
-                self.current_index = (self.current_index + 1) % len(self.api_keys)
-                client = self._get_client()
-                response = client.chat.completions.create(
-                    model = os.environ.get("CHATBOT_MODEL"),
-                    messages = messages,
-                    tools= self.tools,
-                    temperature=0.1,
-                    top_p=0.1,
-                    presence_penalty=0.0,
-                    frequency_penalty=0.0,
-                )
+        response = self.client.chat.completions.create(
+            model = os.environ.get("CHATBOT_MODEL"),
+            messages = messages,
+            tools= self.tools,
+            temperature=0.1,
+            top_p=0.1,
+            presence_penalty=0.0,
+            frequency_penalty=0.0,
+        )
+
         return response.choices[0].message
 
     def generate_single_chat_message(self,user_prompt,messages,flag):
