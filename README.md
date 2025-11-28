@@ -50,9 +50,5 @@ messages, flag = chatbot.generate_single_chat_message(
 )
 ```
 
-## Note
-- RAG is discarded
-- Checkout is temporarily unavailable
-
 ## Next Approach
 - Test interaction using every tool
