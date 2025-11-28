@@ -3,7 +3,6 @@ from langfuse import Langfuse, observe
 from langfuse.openai import OpenAI
 import json
 from Utils.jinjaProcessor import *
-from Utils.parser import *
 import requests
 from dotenv import load_dotenv
 load_dotenv(override=True)
