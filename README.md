@@ -3,12 +3,12 @@ A bot for assisting INDOJUNI customer. This version of chatbot uses the latest k
 
 ## Tools
 ### Implemented
-- Get product details
-- Get product in cart
-- Add product to cart
-- Modify product in cart
-- Show Invoice
-- Checkout cart
+- Search product List -> search list of product using keyword
+- Get product in cart -> get list of product in cart
+- Add product to cart -> add product into cart
+- Modify product in cart -> modify product (name,quantity) in cart
+- Show Invoice -> show the invoice
+- Checkout cart -> checkout the current cart
 
 ## Prerequisite
 Installation using the provided requirements file.

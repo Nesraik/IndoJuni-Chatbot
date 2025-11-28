@@ -17,6 +17,7 @@ class Chatbot(IndoJuniTool):
             "getCurrentCart": self.getCurrentCart,
             "addProduct": self.addProduct,
             "modifyCart": self.modifyCart,
+            "searchProductList": self.searchProductList,
             "showInvoice": self.showInvoice,
             "checkoutCart": self.checkoutCart
         }
