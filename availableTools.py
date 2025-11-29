@@ -97,7 +97,7 @@ class IndoJuniTool:
         }
         response = requests.get(url, headers=request_headers)
         response = response.json()
-        return response['data']
+        return response['data']['default_payment_detail']
 
     @observe(name="Checkout cart")
     def checkoutCart(
@@ -109,7 +109,7 @@ class IndoJuniTool:
             "Accept": "application/json"
         }
         personal_info = self._getBillingAddress()
-        print(personal_info)
+        print("default payment detail : ",personal_info)
         if personal_info is not None:
             response = requests.post(url,headers=request_headers,json=personal_info)
             response = response.json()
