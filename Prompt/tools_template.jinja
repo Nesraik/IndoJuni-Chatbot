@@ -16,80 +16,84 @@
             "name": "searchProductList",
             "description": "You should call this function whenever you want to search a list of product by its brand, category or subcategory.",
             "parameters": {
+            "type": "object",
+            "properties": {
                 "query": {
-                    "type": "object",
-                    "properties": {
-                        "category": {
-                            "type": "string",
-                            "description": "this field is case insensitve",
-                            "enums": [
-                                "Makanan Dan Minuman",
-                                "Pembersih Rumah Tangga",
-                                "Perawatan Pribadi"
-                            ]
-                        },
-                        "subcategory": {
-                            "type": "string",
-                            "description": "this field is case insensitve",
-                            "enums": [
-                                "Makanan Instan",
-                                "Olahan Susu",
-                                "Deterjen Pakaian",
-                                "Pasta Gigi",
-                                "Pembersih Lantai",
-                                "Pencuci Piring",
-                                "Shampo",
-                                "Sabun Mandi"
-                            ]
-                        },
-                        "brand": {
-                            "type": "string",
-                            "description": "this field is case insensitve",
-                            "enums": [
-                                "Indomie",
-                                "Mie Sedaap",
-                                "Sarimi",
-                                "Supermi",
-                                "ABC",
-                                "Lemonilo",
-                                "Pop Mie",
-                                "Cimory",
-                                "Ultra Milk",
-                                "Greenfields",
-                                "Frisian Flag",
-                                "Dancow",
-                                "Diamond Milk",
-                                "IndoMilk",
-                                "Bear Brand",
-                                "Sustagen",
-                                "Milagros",
-                                "Yoforia",
-                                "Biokul",
-                                "Heavenly Blush",
-                                "Rinso Molto",
-                                "Systema",
-                                "Rinso Sensi Fresh",
-                                "Rinso",
-                                "Gentle Gen",
-                                "Attack Easy",
-                                "Soklin Liquid",
-                                "Wipol",
-                                "Super Pell",
-                                "Dettol",
-                                "Mr. Muscle",
-                                "Sunlight",
-                                "Mama Lemon",
-                                "Ekonomi",
-                                "SOS",
-                                "Lifebuoy",
-                                "Pepsodent",
-                                "Ciptadent",
-                                "Sunsilk",
-                                "Scarlett"
-                            ]
-                        }
+                "type": "object",
+                "properties": {
+                    "category": {
+                    "type": "string",
+                    "description": "this field is case insensitive",
+                    "enum": [
+                        "Makanan Dan Minuman",
+                        "Pembersih Rumah Tangga",
+                        "Perawatan Pribadi"
+                    ]
+                    },
+                    "subcategory": {
+                    "type": "string",
+                    "description": "this field is case insensitive",
+                    "enum": [
+                        "Makanan Instan",
+                        "Olahan Susu",
+                        "Deterjen Pakaian",
+                        "Pasta Gigi",
+                        "Pembersih Lantai",
+                        "Pencuci Piring",
+                        "Shampo",
+                        "Sabun Mandi"
+                    ]
+                    },
+                    "brand": {
+                    "type": "string",
+                    "description": "this field is case insensitive",
+                    "enum": [
+                        "Indomie",
+                        "Mie Sedaap",
+                        "Sarimi",
+                        "Supermi",
+                        "ABC",
+                        "Lemonilo",
+                        "Pop Mie",
+                        "Cimory",
+                        "Ultra Milk",
+                        "Greenfields",
+                        "Frisian Flag",
+                        "Dancow",
+                        "Diamond Milk",
+                        "IndoMilk",
+                        "Bear Brand",
+                        "Sustagen",
+                        "Milagros",
+                        "Yoforia",
+                        "Biokul",
+                        "Heavenly Blush",
+                        "Rinso Molto",
+                        "Systema",
+                        "Rinso Sensi Fresh",
+                        "Rinso",
+                        "Gentle Gen",
+                        "Attack Easy",
+                        "Soklin Liquid",
+                        "Wipol",
+                        "Super Pell",
+                        "Dettol",
+                        "Mr. Muscle",
+                        "Sunlight",
+                        "Mama Lemon",
+                        "Ekonomi",
+                        "SOS",
+                        "Lifebuoy",
+                        "Pepsodent",
+                        "Ciptadent",
+                        "Sunsilk",
+                        "Scarlett"
+                    ]
                     }
                 }
+                }
+            },
+            "required": ["query"]
             }
         }
     },
