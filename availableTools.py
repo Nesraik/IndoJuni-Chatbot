@@ -114,6 +114,16 @@ class IndoJuniTool:
             "Authorization": f"Bearer {self.access_token}",
             "Accept": "application/json"
         }
+        
+        # Check if cart is empty
+        if self.getCurrentCart()['content']['content'] == []:
+            return {
+                "content":{
+                    "function_name":"checkoutCart",
+                    "content": "Your cart is empty. Please add products to your cart before checking out.",
+                }
+            }
+        
         personal_info = self._getBillingAddress()
         if personal_info is not None:
             response = requests.post(url,headers=request_headers,json=personal_info)
