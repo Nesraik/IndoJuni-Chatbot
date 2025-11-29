@@ -38,10 +38,16 @@ class IndoJuniTool:
         }
         response = requests.get(url, headers=request_headers)
         response = response.json()
+
+        try:
+            items = response['data']['cart_items']
+        except:
+            items = []
+            
         function_output = {
             "content":{
                 "function_name":"getCurrentCart",
-                "content": response['data']['cart_items'],
+                "content": items,
             }
         }
         return function_output
@@ -135,4 +141,3 @@ class IndoJuniTool:
             }
         return function_output
     
-

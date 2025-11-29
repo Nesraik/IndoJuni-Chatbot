@@ -66,6 +66,7 @@ class Chatbot(IndoJuniTool):
                 "content": response.content,
                 "tool_calls": response.tool_calls if response.tool_calls is not None else []
             })
+            print(response.tool_calls)
 
             if response.tool_calls is None:
                 break

@@ -101,7 +101,7 @@
         "type": "function",
         "function": {
             "name": "addProduct",
-            "description": "You should call this function whenever you want to add product items in the cart.",
+            "description": "You must call this function whenever user wants to buy a product to help them add product items in the cart. However, if you don't have product id yet, you must call searchProductList function first to get the product id.",
             "parameters": {
                 "type": "object",
                 "properties": {
@@ -131,7 +131,7 @@
         "type": "function",
         "function": {
             "name": "modifyCart",
-            "description": "You should call this function whenever you want to modify product items in the cart",
+            "description": "You should call this function whenever you want to modify product items in the cart.",
             "parameters": {
                 "type": "object",
                 "properties": {
