@@ -109,6 +109,7 @@ class IndoJuniTool:
             "Accept": "application/json"
         }
         personal_info = self._getBillingAddress()
+        print(personal_info)
         if personal_info is not None:
             response = requests.post(url,headers=request_headers,json=personal_info)
             response = response.json()
