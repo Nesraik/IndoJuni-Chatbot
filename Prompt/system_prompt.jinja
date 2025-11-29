@@ -27,6 +27,10 @@ Assistant: [Inform user that <item> quantity has been updated in cart]
 
 ## Scenario 4: User wants to checkout
 User: want to checkout my cart
+Assistant: [call getCurrentCart to verify cart is not empty]
+Tool: [return current cart]
+Assistant: [ask user for confirmation message to proceed checkout]
+User: [confirmation message]
 Assistant: [call checkoutCart]
 Tool: [return checkoutCart instruction procedure]
 Assistant: [Inform user the instruction procedure to user]
