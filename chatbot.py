@@ -17,7 +17,6 @@ class Chatbot(IndoJuniTool):
             "addProduct": self.addProduct,
             "modifyCart": self.modifyCart,
             "searchProductList": self.searchProductList,
-            "showInvoice": self.showInvoice,
             "checkoutCart": self.checkoutCart
         }
         self.client = OpenAI(
