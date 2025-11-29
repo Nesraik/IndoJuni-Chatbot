@@ -30,7 +30,7 @@ LANGFUSE_HOST="http://localhost:3000"
 
 # CHATBOT
 CHATBOT_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/"
-CHATBOT_MODEL = "gemini-2.5-flash"
+CHATBOT_MODEL = "gemini-2.5-flash-lite"
 CHATBOT_API_KEY = *******************************
 ```
 
@@ -51,4 +51,5 @@ messages, flag = chatbot.generate_single_chat_message(
 ```
 
 ## Next Approach
-- Test interaction using every tool
+- Test interaction again using every tool (if needed)
+- Make LLM judge
