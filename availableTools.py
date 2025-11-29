@@ -115,7 +115,7 @@ class IndoJuniTool:
             function_output = {
                 "content":{
                     "function_name":"checkoutCart",
-                    "content": response['data'],
+                    "content": f"Tell user to proceed their checkout on this url {os.environ.get('base_url')}/checkout .",
                 }
             }
         else:
