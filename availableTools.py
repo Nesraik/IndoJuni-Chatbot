@@ -115,14 +115,14 @@ class IndoJuniTool:
             function_output = {
                 "content":{
                     "function_name":"checkoutCart",
-                    "content": f"Tell user to proceed their checkout on this url {os.environ.get('base_url')}/checkout .",
+                    "content": f"Tell user to proceed their checkout on this url https://indojuni.cafaku.dev/checkout .",
                 }
             }
         else:
             function_output = {
                 "content":{
                     "function_name":"checkoutCart",
-                    "content": f"Tell user to fill their personal detail on this url {os.environ.get('base_url')}/profile . Tell them to comeback after filling the detail.",
+                    "content": f"Tell user to fill their personal detail on this url https://indojuni.cafaku.dev/profile . Tell them to comeback after filling the detail.",
                 }
             }
         return function_output
