@@ -112,12 +112,20 @@ class IndoJuniTool:
         if personal_info is not None:
             response = requests.post(url,headers=request_headers,json=personal_info)
             response = response.json()
-            function_output = {
-                "content":{
-                    "function_name":"checkoutCart",
-                    "content": f"Checkout Success!. Please proceed to this url https://indojuni.cafaku.dev/checkout to finish your payment! .",
+            if response['status'] != 200:
+                return {
+                    "content":{
+                        "function_name":"checkoutCart",
+                        "content": response['message'],
+                    }
                 }
-            }
+            else:
+                function_output = {
+                    "content":{
+                        "function_name":"checkoutCart",
+                        "content": f"Checkout Success!. You can see your invoice in this url https://indojuni.cafaku.dev/invoice/{response['data']['id']}!.",
+                    }
+                }
         else:
             function_output = {
                 "content":{
@@ -127,20 +135,4 @@ class IndoJuniTool:
             }
         return function_output
     
-    @observe(name="Show invoice")
-    def showInvoice(self):
-        url = f"{self.base_url}/api/v1/invoice"
-        request_headers = {
-            "Authorization": f"Bearer {self.access_token}",
-            "Accept": "application/json"
-        }
-        response = requests.post(url,headers=request_headers)
-        response = response.json()
-        function_output = {
-            "content":{
-                "function_name":"showInvoice",
-                "content": response['data'],
-            }
-        }
-        return function_output
 
