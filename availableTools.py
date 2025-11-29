@@ -109,7 +109,6 @@ class IndoJuniTool:
             "Accept": "application/json"
         }
         personal_info = self._getBillingAddress()
-        print("default payment detail : ",personal_info)
         if personal_info is not None:
             response = requests.post(url,headers=request_headers,json=personal_info)
             response = response.json()
@@ -123,7 +122,7 @@ class IndoJuniTool:
             function_output = {
                 "content":{
                     "function_name":"checkoutCart",
-                    "content": "Error: Billing address not found. Please set your billing address in the profile page before checkout.",
+                    "content": "Tell user to fill their personal detail on this url https://indojuni.cafaku.dev/profile. Tell them to comeback after filling the detail.",
                 }
             }
         return function_output
