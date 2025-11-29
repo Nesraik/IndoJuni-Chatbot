@@ -33,5 +33,4 @@ async def chat(request: Request, response: Response):
         }
 
     except Exception as e:
-        response.status_code = status.HTTP_400_BAD_REQUEST
-        return response.status_code
+        return e
