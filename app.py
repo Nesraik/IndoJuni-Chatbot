@@ -6,6 +6,8 @@ app = FastAPI()
 logger = logging.getLogger("uvicorn.error")
 
 # Get user prompt
+
+
 @app.post("/api/v1/chat")
 async def chat(request: Request, response: Response):
 
@@ -25,12 +27,15 @@ async def chat(request: Request, response: Response):
         flag = requestData.get("flag", False)
         chatbot = Chatbot(access_token=access_key)
 
-        messages, flag = chatbot.generate_single_chat_message(userPrompt, messages, flag)
-        
+        messages, flag = chatbot.generate_single_chat_message(
+            userPrompt, messages, flag)
+
         return {
             "messages": messages,
             "flag": flag
         }
 
     except Exception as e:
-        return e
+        response.status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
+        logger.error(f"Error occurred: {str(e)}")
+        return {"error": str(e)}
