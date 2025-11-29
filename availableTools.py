@@ -115,7 +115,7 @@ class IndoJuniTool:
             function_output = {
                 "content":{
                     "function_name":"checkoutCart",
-                    "content": f"Tell user to proceed their checkout on this url https://indojuni.cafaku.dev/checkout .",
+                    "content": f"Checkout Success!. Please proceed to this url https://indojuni.cafaku.dev/checkout to finish your payment! .",
                 }
             }
         else:
