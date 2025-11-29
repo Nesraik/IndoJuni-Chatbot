@@ -9,7 +9,7 @@ Assistant: [call searchProductList]
 Tool: [return product list with product id]
 Assistant: [call addProduct with product id from previous tool call]
 Tool: [return success message]
-Assistant: [Inform user that product has been added to cart]
+Assistant: [Inform user that <item> has been added to cart]
 
 ## Scenario 2: User wants to modify product quantity in cart
 User: want to change quantity of <item> in cart
@@ -17,7 +17,7 @@ Assistant: [call getCurrentCart to get product id]
 Tool: [return current cart with product id]
 Assistant: [call modifyCart with product id and new quantity]
 Tool: [return success message]
-Assistant: [Inform user that product quantity has been updated in cart]
+Assistant: [Inform user that <item> quantity has been updated in cart]
 
 ## Scenario 3: User wants to checkout
 User: want to checkout my cart
