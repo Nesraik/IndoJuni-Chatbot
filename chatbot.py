@@ -30,8 +30,9 @@ class Chatbot(IndoJuniTool):
             model = os.environ.get("CHATBOT_MODEL"),
             messages = messages,
             tools= self.tools,
-            temperature=0.1,
+            temperature=0,
             top_p=0.1,
+            reasoning_effort= "low"
         )
 
         return response.choices[0].message
