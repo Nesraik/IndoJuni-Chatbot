@@ -32,7 +32,7 @@ class Chatbot(IndoJuniTool):
             tools= self.tools,
             temperature=0,
             top_p=0.1,
-            reasoning_effort= "medium"
+            reasoning_effort= "none"
         )
 
         return response.choices[0].message

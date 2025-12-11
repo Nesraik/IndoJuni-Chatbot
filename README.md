@@ -30,7 +30,7 @@ LANGFUSE_HOST="http://localhost:3000"
 
 # CHATBOT
 CHATBOT_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/"
-CHATBOT_MODEL = "gemini-2.5-flash-lite"
+CHATBOT_MODEL = "gemini-2.5-flash"
 CHATBOT_API_KEY = *******************************
 ```
 
